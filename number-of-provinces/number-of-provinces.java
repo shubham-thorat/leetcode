@@ -1,21 +1,43 @@
 class Solution {
-    public void union(int A,int B,int parent[]){
-        parent[A] = B;
+    class Union {
+        int rank;
+        int parent;
+        Union(int rank,int parent){
+            this.rank = rank;
+            this.parent = parent;
+        }
+        Union(){
+
+        }
     }
-    public int find(int src,int parent[]){
-        if(parent[src] == src){
+    
+    public void union(int A,int B,Union nums[]){
+        if(nums[A].rank > nums[B].rank){
+            nums[B].parent = A;
+        }
+        else if(nums[A].rank < nums[B].rank){
+            nums[A].parent = B;
+        }
+        else {
+            nums[A].parent = B;
+            nums[B].rank += 1;
+        }
+    }
+    public int find(int src,Union nums[]){
+        if(nums[src].parent == src){
             return src;
         }
         else {
-            return parent[src] = find(parent[src],parent);
+            return nums[src].parent = find(nums[src].parent,nums);
         }
     }
+  
     public int findCircleNum(int[][] isConnected) {
         int n = isConnected.length;
         
-        int parent[] = new int[n];
+        Union parent[] = new Union[n];
         for(int i=0;i<n;i++){
-            parent[i] = i;
+            parent[i] = new Union(1,i);
         }
         
         for(int i=0;i<n;i++){
