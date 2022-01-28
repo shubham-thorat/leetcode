@@ -61,8 +61,7 @@ public:
         string ans = "";
         for(int i=0;i<n;i++){
             int index = find(i,nums);
-            int len = mp[index].length();
-            char ch = mp[index][len-1];
+            char ch = mp[index].back();
             mp[index].pop_back();
             ans.push_back(ch);
         }
