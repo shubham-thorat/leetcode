@@ -13,8 +13,8 @@ public:
         }
         vis[s] = 1;
         
-        for(auto v:edges[s]){
-            if(!vis[v]) dfs(edges,v,d,count,vis);
+        for(int i=0;i<edges[s].size();i++){
+            if(!vis[edges[s][i]]) dfs(edges,edges[s][i],d,count,vis);
         }
         vis[s] = 0; //Backtracking
         
