@@ -5,19 +5,17 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-    void dfs(vector<int> edges[],int s,int d,int &count,vector<int> &vis){
+    void dfs(vector<int> edges[],int s,int d,int &count){
         
         if(s==d){
             count++;
             return;
         }
-        vis[s] = 1;
         
         for(int i=0;i<edges[s].size();i++){
-            if(!vis[edges[s][i]]) dfs(edges,edges[s][i],d,count,vis);
+            dfs(edges,edges[s][i],d,count);
         }
-        vis[s] = 0; //Backtracking
-        
+
     }
 	int possible_paths(vector<vector<int>>edges, int n, int s, int d){
 	    // Code here
@@ -26,8 +24,7 @@ public:
 	     for(int i=0;i<edges.size();i++){
 	         adj[edges[i][0]].push_back(edges[i][1]);
 	     }
-    	 vector<int> vis(n,0);
-    	 dfs(adj,s,d,count,vis);
+    	 dfs(adj,s,d,count);
     	 return count;
 	}
 	
