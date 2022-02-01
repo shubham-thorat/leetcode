@@ -4,7 +4,6 @@ class Solution {
         int j = sb2.length() - 1;
         int carry = 0;
         int num = 0;
-        System.out.println(sb1.toString() + " :  " + sb2.toString());
         StringBuilder sb = new StringBuilder();
         while(i>=0 && j >=0){
             num = (sb1.charAt(i) - '0') + (sb2.charAt(j) - '0') + carry;
@@ -31,9 +30,6 @@ class Solution {
         if(carry != 0){
             sb.append(String.valueOf(carry));
         }
-        System.out.println();
-        
-        System.out.println(sb.toString());
         return sb.reverse();
     }
     public String multiply(String num1, String num2) {
@@ -52,7 +48,6 @@ class Solution {
                 
                 sb2.append(String.valueOf(prod%10));
                 carry = (prod/10);
-                System.out.print(prod + " , " + carry + " ) ( ");
             }
             if(carry != 0)
                 sb2.append(String.valueOf(carry));
