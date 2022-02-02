@@ -13,9 +13,18 @@ class Solution {
         arr.remove(index);
     }
     public List<List<Integer>> subsets(int[] nums) {
-       List<List<Integer>> a = new ArrayList<List<Integer>>();
+        
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(nums[0]);
+        for(int e:nums){
+            if(temp.get(temp.size() - 1) != e){
+                temp.add(e);
+            }
+        }
+        
+        List<List<Integer>> a = new ArrayList<List<Integer>>();
         ArrayList<Integer> arr = new ArrayList<>();
-        helper(0,nums,a,arr);       
+        helper(0,temp.stream().mapToInt(e -> e).toArray(),a,arr);       
         return a;
     }
 }
