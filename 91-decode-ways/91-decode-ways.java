@@ -1,25 +1,27 @@
 class Solution {
     public int numDecodings(String s) {
         int n = s.length();
-        int dp[] = new int[n+1];
         
         if(n == 0) return 1;
         if(n == 1) return s.charAt(0) == '0' ? 0: 1;
         if(s.charAt(0) == '0') return 0;
-        dp[0] = 1;
-        dp[1] = 1;
+       int last = 1;
+        int prevlast = 1;
         for(int i=2;i<=n;i++){
             int prevone = s.charAt(i-1) - '0';
             int prevtwo = (s.charAt(i-2) - '0')*10 + prevone;
-            
-            if(prevone != 0) dp[i] += dp[i-1];
+            int curr = 0;
+            if(prevone != 0) curr += last;
             if(prevtwo == 0) return 0;
             
-            if(i-2 >=0 && prevone != prevtwo && prevtwo <= 26){
-                dp[i] += dp[i-2];
+            if(prevone != prevtwo && prevtwo <= 26){
+                curr += prevlast;
             }
+            
+            prevlast = last;
+            last = curr;
         }
         
-        return dp[n];
+        return last;
     }
 }
