@@ -14,8 +14,8 @@ public class Solution {
         
         if(head == null || head.next == null) return null;
         
-        ListNode slow = head.next;
-        ListNode fast = head.next.next;
+        ListNode slow = head;
+        ListNode fast = head.next;
         
         while(slow != fast && fast != null && fast.next != null){
             fast = fast.next.next;
@@ -23,9 +23,11 @@ public class Solution {
         }
         
         if(slow != fast) return null;
+        System.out.println(slow.val + " " + fast.val);
         slow = head;
+        fast = fast.next;
         while(slow != fast){
-            
+             System.out.println(slow.val + " " + fast.val);     
             slow = slow.next;
             fast = fast.next;
         }
