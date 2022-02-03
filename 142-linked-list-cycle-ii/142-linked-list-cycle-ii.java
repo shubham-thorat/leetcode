@@ -23,11 +23,9 @@ public class Solution {
         }
         
         if(slow != fast) return null;
-        System.out.println(slow.val + " " + fast.val);
         slow = head;
         fast = fast.next;
         while(slow != fast){
-             System.out.println(slow.val + " " + fast.val);     
             slow = slow.next;
             fast = fast.next;
         }
