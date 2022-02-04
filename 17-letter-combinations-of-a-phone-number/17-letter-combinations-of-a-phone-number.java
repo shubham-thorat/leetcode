@@ -2,7 +2,7 @@ class Solution {
     private void possibleComb(HashMap<Integer,String> numberletter,String digits,int index,List<String> result,StringBuilder sb){
         if(index == digits.length()){
             if(sb.length() != 0)
-                result.add(new String(sb.toString()));
+                result.add(sb.toString());
             return;
         }
         
