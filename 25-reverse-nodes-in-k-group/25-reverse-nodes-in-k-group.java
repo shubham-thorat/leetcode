@@ -21,18 +21,16 @@ class Solution {
         if(!isSufficientNode(head,k)){
             return head;
         }
-        
-        ListNode curr = head;
         ListNode start = head;
         ListNode prev = null;
         for(int i=1;i<=k;i++){
-            ListNode nxt = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nxt;
+            ListNode nxt = head.next;
+            head.next = prev;
+            prev = head;
+            head = nxt;
         }
         
-        start.next = reverseGroup(curr,k);
+        start.next = reverseGroup(head,k);
         return prev;
     }
     public ListNode reverseKGroup(ListNode head, int k) {
