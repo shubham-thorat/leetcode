@@ -5,7 +5,7 @@ class Solution {
         if(n == 0) return 1;
         if(n == 1) return s.charAt(0) == '0' ? 0: 1;
         if(s.charAt(0) == '0') return 0;
-       int last = 1;
+        int last = 1;
         int prevlast = 1;
         for(int i=2;i<=n;i++){
             int prevone = s.charAt(i-1) - '0';
