@@ -2,14 +2,9 @@ typedef long long ll;
 class Solution {
 public:
     bool asteroidsDestroyed(int sum, vector<int>& nums) {
-        priority_queue<int,vector<int>,greater<int>> pq;
-        
-        for(auto e:nums){
-            pq.push(e);
-        }
+        sort(nums.begin(),nums.end());
         ll mass = sum;
-        while(!pq.empty()){
-            int val = pq.top(); pq.pop();
+        for(int val:nums){
             if(mass >= val){
                 mass += val;
             }
