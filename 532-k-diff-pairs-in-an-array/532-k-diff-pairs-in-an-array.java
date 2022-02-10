@@ -8,10 +8,11 @@ class Solution {
         
         int ans = 0;
         for(int val:map.keySet()){
-            if(k == 0 && map.get(val) > 1){
-                ans += 1;
+            if(k == 0){
+                 if(map.get(val) > 1)
+                    ans += 1;
             }
-            else if(k != 0 && map.containsKey(val + k)){
+            else if(map.containsKey(val + k)){
                 ans += 1;
             }
         }
