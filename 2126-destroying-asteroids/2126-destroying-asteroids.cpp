@@ -5,12 +5,9 @@ public:
         sort(nums.begin(),nums.end());
         ll mass = sum;
         for(int val:nums){
-            if(mass >= val){
-                mass += val;
-            }
-            else mass -= val;
+           if(mass < val) return false;
+            mass += val;
         }
-        
-        return (mass >=0);
+        return true;
     }
 };
