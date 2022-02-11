@@ -29,7 +29,6 @@ class Solution {
         }
         else {
             for(int i=k+1;i<n;i++){
-                dp[i] = 1;
                 for(int j=0;j<i;j++){
                     if(dp[j] % 2 == 0){
                         if(nums[j] < nums[i]){
