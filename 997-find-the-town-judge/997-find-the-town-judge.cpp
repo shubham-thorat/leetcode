@@ -20,11 +20,11 @@ public:
                 expected = e;
                 break;
             }
-            unordered_set<int> st;
+           person.erase(expected);
             for(auto e:trust){
-                if(e[1] == expected) st.insert(e[0]);
+                if(e[1] == expected) person.insert(e[0]);
             }
-            if(st.size() == n-1) return expected;
+            if(person.size() == n-1) return expected;
         }
         return -1;
     }
