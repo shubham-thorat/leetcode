@@ -11,8 +11,8 @@ class Solution {
         
         k--;
         while(k > 0){
-            // pq.poll();
-            System.out.println(pq.poll());
+            pq.poll();
+            // System.out.println(pq.poll());
             k--;
         }
         
