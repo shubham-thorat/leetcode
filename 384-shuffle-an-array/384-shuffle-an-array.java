@@ -1,37 +1,26 @@
 class Solution {
-    
     int original[];
-    int array[];
+    int N;
     public Solution(int[] nums) {
-        original = new int[nums.length];
-        array = new int[nums.length];
-        for(int i=0;i<nums.length;i++){
-            original[i] = nums[i];
-            array[i] = nums[i];
-        }
+        N = nums.length;
+        original = nums;
     }
-    private Random rand = new Random();
-     private List<Integer> getArrayCopy() {
-        List<Integer> asList = new ArrayList<Integer>();
-        for (int i = 0; i < array.length; i++) {
-            asList.add(array[i]);
-        }
-        return asList;
-    }
+    
     public int[] reset() {
         return original;
     }
     
     public int[] shuffle() {
-        List<Integer> aux = getArrayCopy();
-
-        for (int i = 0; i < array.length; i++) {
-            int removeIdx = rand.nextInt(aux.size());
-            array[i] = aux.get(removeIdx);
-            aux.remove(removeIdx);
+        Random rand = new Random();
+        int result[] = original.clone();
+        
+        for(int i=1;i<N;i++){
+            int index = rand.nextInt(i+1);
+            int temp = result[index];
+            result[index] = result[i];
+            result[i] =  temp;
         }
-
-        return array;
+        return result;
     }
 }
 
