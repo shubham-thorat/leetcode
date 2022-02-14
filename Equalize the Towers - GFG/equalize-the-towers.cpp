@@ -23,9 +23,9 @@ class Solution{
 		long int max_h = *max_element(h, h + n); 
 		long int ans = LONG_MAX; 
 
-		long int high = 1 + max_h; 
+		long int high = max_h; 
 		long int low = 0; 
-		while (high > low) { 
+		while (low <= high) { 
 			int mid = (low + high) >> 1; 
 
 			long int bm = (mid > 0) ? 
@@ -40,7 +40,7 @@ class Solution{
 			ans = min(ans, m); 
 
 			if (bm <= m) 
-				high = mid; 
+				high = mid - 1; 
 
 			else if (am <= m) 
 				low = mid + 1; 
