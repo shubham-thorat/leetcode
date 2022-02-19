@@ -20,13 +20,12 @@ class Solution {
         
         int l = solve(root.left);
         int r = solve(root.right);
-        int temp = ((l == 0 || r == 0) ? Math.max(l,r) + 1 : l + r + 1);
-        diameter = Math.max(diameter,temp);
+        diameter = Math.max(diameter,l + r);
         return Math.max(l,r) + 1;
     }
     public int diameterOfBinaryTree(TreeNode root) {
         if(root == null) return 0;
         solve(root);
-        return diameter - 1;
+        return diameter;
     }
 }
