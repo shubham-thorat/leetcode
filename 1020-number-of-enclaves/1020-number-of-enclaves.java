@@ -20,6 +20,8 @@ class Solution {
         if(n == 0) return 0;
         int m = board[0].length;
         
+           /* Traversing boundaries which are 1s and connected to inner region containing 1 make them all 0 
+           remaining regions 1 will be answer */
         for(int i=0;i<n;i++){
             //traversing left column
             if(board[i][0] == 1)
