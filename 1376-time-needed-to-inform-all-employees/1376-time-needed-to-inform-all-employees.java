@@ -1,6 +1,6 @@
 class Solution {
     private int dfs(int src,HashMap<Integer,ArrayList<Integer>> graph,int informTime[]){
-        if(graph.get(src) == null || graph.get(src).size() == 0) return 0;
+        if(graph.get(src) == null) return 0;
         
         int ans = 0;
         for(Integer node:graph.get(src)){
