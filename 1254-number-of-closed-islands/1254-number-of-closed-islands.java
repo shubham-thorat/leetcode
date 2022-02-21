@@ -18,19 +18,13 @@ class Solution {
         int n = grid.length;
         if(n == 0) return 0;
         int m = grid[0].length;
-        for(int i=0;i<n;i++){
-            if(grid[i][0] == 0)
-                dfs(grid,i,0);
-            if(grid[i][m-1] == 0)
-                dfs(grid,i,m-1);
-        }
-        
-        for(int i=0;i<m;i++){
-            if(grid[0][i] == 0)
-                dfs(grid,0,i);
-            if(grid[n-1][i] == 0)
-                dfs(grid,n-1,i);
-        }
+       for(int i=0;i<n;i++){
+           for(int j=0;j<m;j++){
+               if(grid[i][j] == 0 &&  ((i*j == 0) || i == n-1 || j == m-1)){
+                   dfs(grid,i,j);
+               }
+           }
+       }
         
         int count = 0;
         for(int i=1;i<n-1;i++){
