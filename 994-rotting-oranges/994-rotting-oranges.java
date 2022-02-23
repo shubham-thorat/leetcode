@@ -19,7 +19,7 @@ class Solution {
         int X[] = new int[]{0,0,1,-1};
         int Y[] = new int[]{1,-1,0,0};
         int distance = 0;
-        System.out.println(totalorange);
+        // System.out.println(totalorange);
         while(!q.isEmpty()){
             
             int sz = q.size();
