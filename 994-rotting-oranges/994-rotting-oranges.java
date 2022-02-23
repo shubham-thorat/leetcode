@@ -13,6 +13,7 @@ class Solution {
                 if(grid[i][j] != 0) totalorange += 1;
             }
         }
+        if(totalorange == 0) return 0;
         
         // if(q.size() == 0) return -1;
         
@@ -41,6 +42,6 @@ class Solution {
             distance++;
         }
         
-        return (totalorange == 0 ? Math.max(0,distance - 1) : -1);
+        return (totalorange == 0 ? distance - 1 : -1);
     }
 }
