@@ -11,41 +11,22 @@
  */
 class Solution {
 public:
-    bool isSymmetric(TreeNode* root) {
-        list<TreeNode*> q;
-        q.push_back(root);
-        
-        while(!q.empty()){
-            int sz = q.size();
-            for(int i=0;i<sz;i++){
-                
-                TreeNode *curr  = q.front(); q.pop_front();
-                if(curr != NULL) {
-                     q.push_back(curr->left);
-                     q.push_back(curr->right);
-                }
-            }
-            
-            auto it1 = q.begin();
-            auto it2 = q.end();
-            it2--;
-            int i = 0,j=q.size();
-            while(i < j){
-                if((*it1) == NULL && (*it2) == NULL){
-                    
-                }
-                else if((*it1) == NULL || (*it2) == NULL){
-                    return false;
-                }
-                else if((*it1)->val != (*it2)->val){
-                    return false;
-                }
-                it1++;
-                it2--;
-                i++;
-                j--;
-            }
+bool isSymmetric(TreeNode *root) {
+        if (!root) return true;
+        return helper(root->left, root->right);
+    }
+    
+    bool helper(TreeNode* p, TreeNode* q) {
+        if (!p && !q) {
+            return true;
+        } else if (!p || !q) {
+            return false;
         }
-        return true;
+        
+        if (p->val != q->val) {
+            return false;
+        }
+        
+        return helper(p->left,q->right) && helper(p->right, q->left); 
     }
 };
