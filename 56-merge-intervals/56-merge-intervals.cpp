@@ -5,10 +5,7 @@ public:
         int n = intervals.size();
         if(n == 0) return intervals;
        
-        sort(intervals.begin(),intervals.end(),[](vector<int> &a,vector<int> &b){
-            if(a[0] != b[0]) return a[0] < b[0];
-            else return a[1] < b[1];
-        });
+        sort(intervals.begin(),intervals.end());
          int x = intervals[0][0];
         int y = intervals[0][1];
         
