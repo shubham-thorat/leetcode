@@ -16,15 +16,12 @@ public:
         ListNode *curr = start,*prev = NULL;
         
         while(head != NULL){
-            if(prev != NULL && head->val == prev->val){
-                head = head->next;
-            }
-            else {
+            if(prev == NULL || head->val != prev->val){
                 curr->next = head;
                 prev = head;
-                head = head->next;
                 curr = curr->next;
             }
+            head = head->next;
         }
         curr->next = NULL;
         return start->next;
