@@ -3,7 +3,7 @@ public:
     string convert(string s, int n) {
         if(n == 1) return s;
         
-        vector<vector<char>> v(n);
+        vector<string> v(n);
         
         bool inc  = true;
         int i = 0;
@@ -27,9 +27,7 @@ public:
         }
         string str = "";
         for(int i=0;i<n;i++){
-            for(auto e:v[i]){
-                str.push_back(e);
-            }
+            str += v[i];
         }
         return str;
     }
