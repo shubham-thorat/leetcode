@@ -1,15 +1,13 @@
 class Solution {
 public:
     void merge(vector<int> &nums,int l,int m,int r,int &ans){
-       int cnt = 0;
         int j = m + 1;
         for(int i=l;i<=m;i++){
             while(j <= r && nums[i] > (2 * 1LL * nums[j]) ){
                 j++;
             }
-            cnt += (j - (m + 1));
+            ans += (j - (m + 1));
         }
-        ans += cnt;
         
         sort(nums.begin() + l, nums.begin() + r + 1);
     }
