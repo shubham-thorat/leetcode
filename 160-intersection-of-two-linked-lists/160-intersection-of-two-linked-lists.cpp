@@ -8,18 +8,40 @@
  */
 class Solution {
 public:
+    ListNode* origin(ListNode *a,ListNode *b){
+        while(a != NULL && b != NULL && a != b){
+            a = a->next;
+            b = b->next;
+        }
+        return a;
+    }
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        unordered_set<ListNode*> nodes;
-        ListNode *curr = headA;
-        while(curr != NULL){
-            nodes.insert(curr);
-            curr = curr->next;
+        
+        if(headA == headB) return headA;
+        ListNode *a = headA;
+        ListNode *b = headB;
+        
+        while(a != NULL && b != NULL){
+            a = a->next;
+            b = b->next;
+        }
+        int count = 0;
+        if(a != NULL){
+            while(a != NULL) { count++; a=a->next; }
+            b = headB;
+            a = headA;
+            while(count--) a = a->next;
+            return origin(a,b);
+        }
+        else {
+            
+            while(b != NULL) { count++; b=b->next; }
+            b = headB;
+            a = headA;
+            while(count--) b = b->next;
+            return origin(a,b);
         }
         
-        while(headB != NULL){
-            if(nodes.find(headB) != nodes.end()) return headB;
-            headB = headB->next;
-        }
-        return NULL;
+        // return NULL;
     }
 };
