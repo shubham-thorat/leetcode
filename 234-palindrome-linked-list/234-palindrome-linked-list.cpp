@@ -9,17 +9,37 @@
  * };
  */
 class Solution {
+
 public:
+    ListNode *findMid(ListNode *head){
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast->next!=NULL&&fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }  
+        return slow;
+    }
+    ListNode* reverse(ListNode *head){
+        if(head == NULL || head->next == NULL) return head;
+        
+        ListNode *curr = reverse(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return curr;
+    }
+    
     bool isPalindrome(ListNode* head) {
-        vector<ListNode*> nodes;
+        if(head == NULL || head->next == NULL) return true;
+        ListNode *mid = findMid(head);
+        if(mid == NULL) return true;
+        ListNode *second = reverse(mid->next);
+        mid->next = NULL;
         
-        while(head != NULL) nodes.push_back(head), head = head->next;
-        
-        int i = 0,j = nodes.size() - 1;
-        while(i < j){
-            if(nodes[i]->val != nodes[j]->val) return false;
-            i++;
-            j--;
+        while(head != NULL && second != NULL){
+            if(head->val != second->val) return false;
+            head = head->next;
+            second = second->next;
         }
         return true;
     }
