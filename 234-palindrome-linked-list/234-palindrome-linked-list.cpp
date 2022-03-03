@@ -13,7 +13,7 @@ public:
     bool isPalindrome(ListNode* head) {
         vector<ListNode*> nodes;
         
-        while(head != NULL){ nodes.push_back(head); head = head->next;}
+        while(head != NULL) nodes.push_back(head), head = head->next;
         
         int i = 0,j = nodes.size() - 1;
         while(i < j){
