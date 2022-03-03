@@ -8,7 +8,13 @@
  */
 class Solution {
 public:
-    ListNode* origin(ListNode *a,ListNode *b){
+    ListNode* origin(ListNode *a,ListNode *b,ListNode *headA,ListNode *headB){
+        int count = 0;        
+        while(a != NULL) { count++; a=a->next; }
+        b = headB;
+        a = headA;
+        while(count--) a = a->next;
+
         while(a != NULL && b != NULL && a != b){
             a = a->next;
             b = b->next;
@@ -27,21 +33,10 @@ public:
         }
         int count = 0;
         if(a != NULL){
-            while(a != NULL) { count++; a=a->next; }
-            b = headB;
-            a = headA;
-            while(count--) a = a->next;
-            return origin(a,b);
+            return origin(a,b,headA,headB);
         }
         else {
-            
-            while(b != NULL) { count++; b=b->next; }
-            b = headB;
-            a = headA;
-            while(count--) b = b->next;
-            return origin(a,b);
+               return origin(b,a,headB,headA);
         }
-        
-        // return NULL;
     }
 };
