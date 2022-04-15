@@ -22,11 +22,8 @@ public:
         else if(root->val < low) {
             return trimBST(root->right,low,high);
         }
-        else if(root->val > high) {
+        else  {
             return trimBST(root->left,low,high);
-        }
-        else {
-            return NULL;
         }
     }
 };
