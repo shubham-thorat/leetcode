@@ -1,20 +1,21 @@
 class Solution {
 public:
-    int helper(vector<int> &nums,int index,vector<int> &dp){
-        if(index >= nums.size() - 1){
-            return 0;
-        }
+    int solve(vector<int> &nums,int idx,vector<int> &dp){
         
-        if(dp[index] != -1) return dp[index];
-        int ans = nums.size() + 1;
-       for(int i=1;i<=nums[index];i++){
-           int temp = helper(nums,index + i,dp) + 1;
-           ans = min(ans,temp);
-       }
-        return dp[index] = ans;
+        if(idx>=nums.size()-1) return 0;
+        if(dp[idx] != -1) return dp[idx];
+        if(nums[idx]==0) return dp[idx] = 1e5; //Not possible
+        else{
+            int ans = 1e5;
+            for(int i=1;i<=nums[idx];i++){
+                int curr = 1+solve(nums,idx+i,dp);
+                ans = min(curr,ans);
+            }
+            return dp[idx] = ans; //after exploring all the possibilities if not possible
+        }
     }
     int jump(vector<int>& nums) {
-        vector<int> dp(nums.size(),-1);
-        return helper(nums,0,dp);
+        vector<int> dp(nums.size() + 1,-1);
+        return solve(nums,0,dp);
     }
 };
