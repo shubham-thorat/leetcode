@@ -11,26 +11,23 @@
  */
 class Solution {
 public:
-    int findSum(TreeNode *root) {
-        if(root == NULL) return 0;
-        
-        return root->val + findSum(root->left) + findSum(root->right);
-    } 
-    TreeNode *helper(int &sum,TreeNode *root) {
-        if(root == NULL) return root;
-        
-        TreeNode *l = helper(sum,root->left);
-        int v = root->val;
-        // cout << v << " ";
-        root->val = sum;
-        // cout << root->val << endl;
-        sum = sum - v;
-        TreeNode *r = helper(sum,root->right);
-        return root;
-    }
     TreeNode* convertBST(TreeNode* root) {
-        int sum = findSum(root);
-        // cout << sum << endl;
-        return helper(sum,root);
+        int sum = 0;
+        stack<TreeNode*> st;
+        TreeNode *node = root;
+        while(!st.empty() || node != NULL) {
+            while(node != NULL) {
+                st.push(node);
+                node = node->right;
+            }
+            
+            node = st.top();
+            st.pop();
+            // node->val = sum;
+            sum += node->val;
+            node->val = sum;
+            node = node->left;
+        }
+        return root;
     }
 };
