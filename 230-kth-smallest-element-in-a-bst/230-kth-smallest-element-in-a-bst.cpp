@@ -18,7 +18,6 @@ public:
         if(l != -1) return l;
         index++;
         if(index == k) return root->val;
-        // index++;
         int r = helper(root->right,k,index);
         
         return r;
