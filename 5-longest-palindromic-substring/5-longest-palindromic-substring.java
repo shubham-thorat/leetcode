@@ -1,45 +1,31 @@
 class Solution {
+    int expand(String s,int l,int r) {
+        
+        while(l >=0 && r < s.length()) {
+            if(s.charAt(l) != s.charAt(r)) {
+                break;
+            }
+            l--;
+            r++;
+        }
+        
+        return (r-l-1);
+    }
     public String longestPalindrome(String s) {
         
-        int strLen = s.length();
-        if(strLen == 0) return "";
-        int ans = 1,lidx = 0,ridx = 0;
-        for(int i=0;i<strLen;i++) {
-            int lPtr = i,rPtr = i;
+        int strlen = s.length();
+        int ans = 0,left = -1;
+        for(int i=0;i<strlen;i++) {
+            int len1 = expand(s,i,i);
+            int len2 = expand(s,i,i + 1);
             
-            while(lPtr >=0 && rPtr < strLen) {
-                if(s.charAt(lPtr) != s.charAt(rPtr)) {
-                   
-                    break;
-                }
-                lPtr--;
-                rPtr++;
-            }
+            int len = Math.max(len1,len2);
             
-             if(ans < (rPtr-lPtr - 1)) {
-                lidx = lPtr + 1;
-                ridx = rPtr - 1;
-                ans = rPtr - lPtr - 1;
-            } 
-        }
-        
-        for(int i=0;i<strLen-1;i++) {
-            int lPtr = i,rPtr = i + 1;
-            
-            while(lPtr >=0 && rPtr < strLen) {
-                if(s.charAt(lPtr) != s.charAt(rPtr)) {     
-                    break;
-                }
-                lPtr--;
-                rPtr++;
-            }
-            if(ans < (rPtr-lPtr - 1)) {
-                lidx = lPtr + 1;
-                ridx = rPtr - 1;
-                ans = rPtr - lPtr - 1;
+            if(len > ans) {
+                ans = len;
+                left = i - (len-1)/2;    
             }
         }
-        
-        return s.substring(lidx,ridx + 1);
+        return s.substring(left,left + ans);
     }
 }
