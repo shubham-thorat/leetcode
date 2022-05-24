@@ -120,106 +120,48 @@ struct Node
 class Solution
 {
     public:
-    // vector<int> printCousins(Node* root, Node* find)
-    // {
-    //     queue<Node*> q;
-    //     q.push(root);
-    //     unordered_map<Node*,Node*> mp;
-        
-        
-    //     while(!q.empty()) {
-    //         int sz = q.size();
-    //         bool flag = false;
-    //         for(int i=0;i<sz;i+=1) {
-    //             Node *temp = q.front(); q.pop();
-                
-    //             if(temp->left) {
-    //                 if(temp->left == find) flag = true;
-    //                 q.push(temp->left);
-    //                 mp[temp->left] = temp;
-    //             }
-                
-    //             if(temp->right) {
-    //                 if(temp->right == find) flag = true;
-    //                 q.push(temp->right);
-    //                 mp[temp->right] = temp;
-    //             }
-    //         }
-            
-    //         if(flag == true) {
-    //             vector<int> ans;
-    //             while(!q.empty()) {
-    //                 Node *curr= q.front();q.pop();
-                    
-    //                 if(mp[curr] != mp[find]) {
-    //                     ans.push_back(curr->data);
-    //                 }
-    //             }
-                
-    //             if(ans.size() == 0) return {-1};
-    //             return ans;
-    //         }
-    //     }
-    //     return {-1};
-    // }
-    
     vector<int> printCousins(Node* root, Node* find)
     {
-       if(find==root) return {-1};
-       
-       //Mark all the parents of each node
-       unordered_map<Node*,Node*> par;
-       queue<Node*> q;
-       q.push(root);
-       int level = 0,target = -1;
-       
-       while(!q.empty()){
-           level++;
-           
-           int n = q.size();
-           
-           for(int i=0;i<n;i++) {
-               Node* curr = q.front();
-               if(curr==find) target = level;
-               q.pop();
-               if(curr->left){
-                   par[curr->left] = curr;
-                   q.push(curr->left);
-               }
-               if(curr->right){
-                   par[curr->right] = curr;
-                   q.push(curr->right);
-               }
-           }
-       }
-       
-       //Perform level order traversal and push all the nodes which are at the same level of the required node
-       
-       queue<Node*> q1;
-       q1.push(root);
-       vector<Node*> temp;
-       int l = 0;
-       while(!q1.empty()){
-          
-           int n = q1.size();
-           l++;
-           for(int i=1;i<=n;i++){
-                Node* curr1 = q1.front();
-                q1.pop();
-                if(l==target) temp.push_back(curr1);
-                if(curr1->left) q1.push(curr1->left);
-                if(curr1->right) q1.push(curr1->right);
-           }
-       }
-       
-       Node* x = par[find];
-       //find the nodes which donot have same parent 
-       vector<int> ans;
-       for(int i=0;i<temp.size();i++){
-           if(par[temp[i]]!=x) ans.push_back(temp[i]->data);
-       }
-      if(ans.size()==0) return {-1};
-      return ans;
+        queue<Node*> q;
+        q.push(root);
+        unordered_map<Node*,Node*> mp;
+        
+        
+        while(!q.empty()) {
+            int sz = q.size();
+            bool flag = false;
+            for(int i=0;i<sz;i+=1) {
+                Node *temp = q.front(); q.pop();
+                
+                if(temp->left) {
+                    if(temp->left == find) flag = true;
+                    q.push(temp->left);
+                    mp[temp->left] = temp;
+                }
+                
+                if(temp->right) {
+                    if(temp->right == find) flag = true;
+                    q.push(temp->right);
+                    mp[temp->right] = temp;
+                }
+            }
+            
+            if(flag == true) {
+                vector<int> ans;
+                while(!q.empty()) {
+                    Node *curr= q.front();q.pop();
+                    
+                    if(mp[curr] != mp[find]) {
+                        ans.push_back(curr->data);
+                    }
+                }
+                
+                if(ans.size() == 0) return {-1};
+                return ans;
+            }
+            mp.clear();
+        }
+        return {-1};
     }
     
 };
