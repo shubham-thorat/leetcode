@@ -5,7 +5,7 @@ using namespace std;
 
  // } Driver Code Ends
 // c
-typedef long long ll;
+typedef long long int ll;
 class Solution{
   public:
     // arr[]: Input Array
