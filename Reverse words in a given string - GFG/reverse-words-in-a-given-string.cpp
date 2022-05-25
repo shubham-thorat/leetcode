@@ -11,25 +11,19 @@ class Solution
     //Function to reverse words in a given string.
     string reverseWords(string s) 
     { 
-        vector<string> v;
-        int lo = 0;
-        for(int i=0;i<s.length();i++) {
+        int hi = s.length() - 1;
+        string ans = "";
+        for(int i=s.length()-1;i>=0;i--) {
             if(s[i] == '.') {
-                v.push_back(s.substr(lo,i-lo));
-                lo = i + 1;
+                ans += s.substr(i+1,hi - i);
+                if(i != 0)
+                    ans.push_back('.');
+                hi = i - 1;
             }
         }
         
-        v.push_back(s.substr(lo));
-        
-        string str = "";
-        
-        for(int i=v.size() -1;i>=0;i--) {
-            str += v[i];
-            if(i != 0)
-                str.push_back('.');
-        }
-        return str;
+        ans += s.substr(0,hi + 1);
+        return ans;
     } 
 };
 
