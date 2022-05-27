@@ -48,12 +48,19 @@ class Solution
         // The task is to complete this method
         if(head == NULL || head->next == NULL) return head;
         
-        Node *rest = pairWiseSwap(head->next->next);
         
-        Node *curr = head->next;
-        curr->next = head;
+        Node *curr = head,*prev = NULL;
+        int count = 2;
+        while(curr != NULL && count--) {
+            Node *temp = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        
+        Node *rest = pairWiseSwap(curr);
         head->next = rest;
-        return curr;
+        return prev;
     }
 };
 
