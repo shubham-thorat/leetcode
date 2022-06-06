@@ -11,9 +11,6 @@ public:
             }
         }
         
-        for(int i=prevNonZero + 1;i<nums.size();i++) {
-            nums[i] = 0;
-        }
         
     }
 };
