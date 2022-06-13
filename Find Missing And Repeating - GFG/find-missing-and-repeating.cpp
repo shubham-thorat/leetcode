@@ -8,43 +8,23 @@ class Solution{
 public:
     int *findTwoElement(int *nums, int n) {
         // code here
+        int arr[n];
+        memset(arr,0,sizeof(arr));
+        for(int i=0;i<n;i++) {
+            arr[nums[i] - 1] += 1; 
+        }
         
-        int *ans = new int[2];
-        
-        sort(nums,nums + n);
-        int current = 1,miss = 0,repeat = -1;
-        
-          for (int i = 1; i < n; i++) 
-        {
-            if (nums[i] == nums[i - 1]) 
-            {
-                // Found the repeating number.
-                repeat = nums[i];
-                break;
+        int miss,repeat;
+        for(int i=0;i<n;i++) {
+            if(arr[i] == 0) {
+                miss = i + 1;
+            }
+            if(arr[i] == 2) {
+                repeat = i + 1;
             }
         }
-
-        int nextNum = 1;
-        for (int i = 0; i < n; i++) 
-        {
-            if (nums[i] == nextNum) 
-            {
-                ++nextNum;
-                if (nums[i] == repeat) 
-                {
-                    ++i;
-                }
-            }
-            else 
-            {
-                // Found the missing number.
-                break;
-            }
-        }
-
-        miss = nextNum;
-
-        return new int[2]{repeat, miss};
+        
+        return new int[2]{repeat,miss};
     }
 };
 
