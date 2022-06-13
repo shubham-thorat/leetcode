@@ -8,21 +8,40 @@ class Solution{
 public:
     int *findTwoElement(int *nums, int n) {
        
-       long long missrepeatsquarediff = 0;
-       long long missrepeatdiff = 0;
+       int xor_total = 0;
+       
        for(int i=0;i<n;i++) {
-           missrepeatsquarediff += (1LL * nums[i] * nums[i]) - (1LL * (i+1)*(i+1));
-           missrepeatdiff += (long long)(nums[i] - (i+1));
+           xor_total = (xor_total ^ (i+1) ^ nums[i]);
+           
        }
        
-       long long missrepeatsum = (missrepeatsquarediff/missrepeatdiff);
+       int set_bits = (xor_total & ~(xor_total - 1));
        
        
-       int repeat = (missrepeatsum + missrepeatdiff)/2;
-        int miss =  (missrepeatsum - missrepeatdiff)/2;
-        
-        return new int[2]{repeat,miss};
+       int x = 0,y = 0;
+       for(int i=0;i<n;i++) {
+           
+           if((set_bits & nums[i]) != 0) {
+               x = x ^ nums[i];
+           }
+           else {
+               y = y ^ nums[i];
+           }
+           
+           if(((i+1) & set_bits) != 0) {
+               x = x ^ (i+1);
+           }
+           else {
+               y = y ^ (i+1);
+           }
+       }
+       int cnt = 0;
+       for(int i=0;i<n;i++) {
+           if(x == nums[i]) cnt++;
+       }
        
+       if(cnt == 2) return new int[2]{x,y};
+       else return new int[2]{y,x};
     }
 };
 
