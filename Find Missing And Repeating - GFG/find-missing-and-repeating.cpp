@@ -7,24 +7,22 @@ using namespace std;
 class Solution{
 public:
     int *findTwoElement(int *nums, int n) {
-        // code here
-        int arr[n];
-        memset(arr,0,sizeof(arr));
-        for(int i=0;i<n;i++) {
-            arr[nums[i] - 1] += 1; 
-        }
-        
-        int miss,repeat;
-        for(int i=0;i<n;i++) {
-            if(arr[i] == 0) {
-                miss = i + 1;
-            }
-            if(arr[i] == 2) {
-                repeat = i + 1;
-            }
-        }
+       
+       long long missrepeatsquarediff = 0;
+       long long missrepeatdiff = 0;
+       for(int i=0;i<n;i++) {
+           missrepeatsquarediff += (1LL * nums[i] * nums[i]) - (1LL * (i+1)*(i+1));
+           missrepeatdiff += (long long)(nums[i] - (i+1));
+       }
+       
+       long long missrepeatsum = (missrepeatsquarediff/missrepeatdiff);
+       
+       
+       int repeat = (missrepeatsum + missrepeatdiff)/2;
+        int miss =  (missrepeatsum - missrepeatdiff)/2;
         
         return new int[2]{repeat,miss};
+       
     }
 };
 
