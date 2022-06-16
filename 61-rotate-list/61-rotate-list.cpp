@@ -23,13 +23,13 @@ public:
         }
         
         k = (k%len);
-        // if(k == 0) return head;
         
         ListNode *end = head;
         k = len - k - 1;
         
-        while(k--) {
+        while(k > 0) {
             end = end->next;
+            k--;
         }
         last->next = head;
         ListNode *newHead = end->next;
