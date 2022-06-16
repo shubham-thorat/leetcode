@@ -29,25 +29,33 @@ class Solution
     //Function to find the maximum profit and the number of jobs done.
     vector<int> JobScheduling(Job arr[], int n) 
     { 
-        sort(arr,arr+n,[](Job a,Job b){
-           if(a.profit != b.profit) return a.profit > b.profit;
-           else return a.dead < b.dead;
-        });
-        bool result[n]; memset(result,false,sizeof(result));
+        // your code here
         
-        int day = 0,profit = 0;
-        for(int i=0;i<n;i++){
+        int maxDead = 0;
+        sort(arr,arr+n,[](Job a,Job b) {
+        //   maxDead = max({maxDead,a.dead,b.dead});
+           return a.profit > b.profit; 
+        });
+        
+        for(int i=0;i<n;i++) {
+            maxDead = max(maxDead,arr[i].dead);
+        }
+        int cntJob = 0,cntProfit = 0;
+        vector<int> seen(maxDead + 1,-1);
+        
+        
+        for(int i=0;i<n;i++) {
             
-            for(int j=min(arr[i].dead,n)-1;j>=0;j--){
-                if(result[j] == false){
-                    profit += arr[i].profit;
-                    day +=1;
-                    result[j] = true;
+            for(int j=arr[i].dead;j>0;j--) {
+                if(seen[j] == -1) {
+                    seen[j] = i;
+                    cntProfit += arr[i].profit;
+                    cntJob += 1;
                     break;
                 }
             }
         }
-        return {day,profit};
+        return {cntJob,cntProfit};
     } 
 };
 
