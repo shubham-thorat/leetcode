@@ -6,27 +6,33 @@ using namespace std;
 class Solution
 {
     public:
+    static bool sortByEndTime(pair<int,int> first,pair<int,int> second ) {
+    
+        return first.second < second.second;
+    }        
     //Function to find the maximum number of meetings that can
     //be performed in a meeting room.
     int maxMeetings(int start[], int end[], int n)
     {
-        vector<pair<int,int>> v;
-        for(int i=0;i<n;i++) v.push_back({start[i],end[i]});
+        // Your code here
         
-        sort(v.begin(),v.end(),[](pair<int,int> &p1,pair<int,int> &p2){
-           if(p1.second != p2.second) return p1.second < p2.second;
-           else return p1.first < p2.first;
-        });
-        if(n == 0) return 0;
-        int count = 0;
-        int y = v[0].second;
-        for(int i=1;i<n;i++){
-            if(y < v[i].first){
-                y = v[i].second;
-                count++;
+        vector<pair<int,int>> v;
+        
+        for(int i=0;i<n;i++) {
+            v.push_back({start[i],end[i]});
+        }
+        
+        sort(v.begin(),v.end(),sortByEndTime);
+        
+        int last = 0,cnt = 0;
+        
+        for(int i=0;i<n;i++) {
+            if(last < v[i].first) {
+                cnt++;
+                last = v[i].second;
             }
         }
-        return count + 1;
+        return cnt;
     }
 };
 
