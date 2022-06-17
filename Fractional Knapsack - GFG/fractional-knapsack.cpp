@@ -21,25 +21,28 @@ struct Item{
 class Solution
 {
     public:
+    static bool mysort(const Item &a,const Item &b) {
+        
+        return ((a.value * b.weight) > (b.value * a.weight));
+    }
     //Function to get the maximum total value in the knapsack.
     double fractionalKnapsack(int W, Item arr[], int n)
     {
-       sort(arr,arr+n,[](Item i1,Item i2){
-            return ((1.0 * i1.value/i1.weight) > (1.0 * i2.value/i2.weight)); 
-       });
-        
-        double sum = 0;
-        for(int i=0;i<n;i++){
-            if(W >= arr[i].weight){
-                W = W - arr[i].weight;
-                sum += arr[i].value;
-            }
-            else {
-                sum +=  W * (1.0 * arr[i].value/arr[i].weight);
+       double ans = 0.0;
+       
+       sort(arr,arr + n,mysort);
+       
+       for(int i=0;i<n;i++) {
+           if(W >= arr[i].weight) {
+               W = W - arr[i].weight;
+               ans += arr[i].value;
+           }
+           else {
+               ans += (1.0 * W/arr[i].weight) * arr[i].value;
                 break;
-            }
-        }
-        return sum;
+           }
+       }
+       return ans;
     }
         
 };
