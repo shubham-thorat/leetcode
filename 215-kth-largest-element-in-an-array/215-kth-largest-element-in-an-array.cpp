@@ -1,36 +1,41 @@
 class Solution {
 public:
-    int partition(vector<int> &nums,int lo,int hi) {
-        int pivot = nums[hi];
-        int i = lo,j = lo;
+    int partition(vector<int> &nums,int low,int high) {
+        int pivot = nums[low];
+        int i = high,j = high;
         
-        
-        while(j < hi) {
-            if(nums[j] < pivot) {
-                swap(nums[j],nums[i]);
-                i++;
-                j++;
+        while(i > low) {
+            if(nums[i] < pivot) {
+                swap(nums[i],nums[j]);
+                i--;
+                j--;
             }
             else {
-                j++;
+                i--;
             }
         }
-        
-        swap(nums[hi],nums[i]);
-        return i;
+        swap(nums[low],nums[j]);
+        return j;
     }
-    int solve(vector<int> &nums,int lo,int hi,int k) {
-        int n = nums.size();
-        if(lo <= hi) {
-            int p = partition(nums,lo,hi);
-            
-            if((hi-p + 1) == k) return nums[p];
-            
-            if((hi-p + 1) < k) return solve(nums,lo,p-1,k - (hi-p + 1));
-            else return solve(nums,p+1,hi,k);
-        }
-        return 9999999;
+    int solve(vector<int> &nums,int low,int high,int k) {
         
+        if(low <= high) {
+            
+            int index = partition(nums,low,high);
+            int sz = index - low + 1;
+            if(sz == k) {
+                return nums[index];
+            }
+            else if(sz < k) {
+                return solve(nums,index + 1,high,k - sz);
+            }
+            else {
+                return solve(nums,low,index - 1,k);
+            }
+        }
+        else {
+            return INT_MAX;
+        }
     }
     int findKthLargest(vector<int>& nums, int k) {
         
