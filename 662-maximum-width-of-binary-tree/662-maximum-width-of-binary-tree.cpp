@@ -20,15 +20,15 @@ public:
         
         while(!q.empty()) {
             int sz = q.size();
-            long long minDist = INT_MAX,maxDist = -1;
+            long long minDist,maxDist;
             long long currMin = q.front().second;
             for(int i=0;i<sz;i++) {
                 auto [curr,dist] = q.front();
                 q.pop();
                 dist = dist - currMin;
-                
-                maxDist = max({maxDist,dist});
-                minDist = min({minDist,dist});
+              
+                if(i ==0) minDist = dist;
+                if(i == sz - 1) maxDist =dist;
                 if(curr->left) {
                     q.push({curr->left,2*dist + 1});
                 }
