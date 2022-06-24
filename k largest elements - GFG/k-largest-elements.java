@@ -39,7 +39,7 @@ class Solution {
         int j = n-1;
         
     
-    while(i < k){
+    while(j >= (n-k)){
         result[i] = arr[j];
         i++;
         j--;
