@@ -14,13 +14,12 @@ public:
     int solve(TreeNode *root,int &ans) {
         if(root == NULL) return 0;
         
-        int l = max(0,solve(root->left,ans));
-        int r = max(0,solve(root->right,ans));
+        int l = solve(root->left,ans);
+        int r = solve(root->right,ans);
         
-        ans = max(ans,l + r + root->val);
-        // ans = max({ans,l + root->val ,r + root->val,l + r + root->val,root->val});
         
-        return max(l,r) + root->val;
+        ans = max({ans,l + root->val,r + root->val,l + r + root->val,root->val});
+        return max({root->val,l + root->val,r + root->val});
     }
     int maxPathSum(TreeNode* root) {
         int ans = INT_MIN;
