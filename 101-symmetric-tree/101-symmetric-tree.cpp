@@ -11,22 +11,23 @@
  */
 class Solution {
 public:
-bool isSymmetric(TreeNode *root) {
-        if (!root) return true;
-        return helper(root->left, root->right);
-    }
-    
-    bool helper(TreeNode* p, TreeNode* q) {
-        if (!p && !q) {
+    bool isSymmetricUtil(TreeNode *root1,TreeNode *root2) {
+        if(root1 == NULL && root2 == NULL) {
             return true;
-        } else if (!p || !q) {
+        }
+        else if(root1 == NULL || root2 == NULL) {
             return false;
         }
         
-        if (p->val != q->val) {
+        if(root1->val == root2->val && isSymmetricUtil(root1->left,root2->right) && isSymmetricUtil(root1->right,root2->left)) {
+            return true;
+        }
+        else {
             return false;
         }
+    }
+    bool isSymmetric(TreeNode* root) {
         
-        return helper(p->left,q->right) && helper(p->right, q->left); 
+        return isSymmetricUtil(root,root);
     }
 };
