@@ -11,20 +11,23 @@
  */
 class Solution {
 public:
-    bool isValidBSTUtil(TreeNode *root,long long minValue,long long maxValue) {
-        if(root == NULL) {
+    bool isValidBSTUtil(TreeNode *root,TreeNode *minValue,TreeNode *maxValue) {
+        if(root == nullptr) {
             return true;
         }
         
-        if(root->val > minValue && root->val < maxValue) {
-            return isValidBSTUtil(root->left,minValue,root->val) && isValidBSTUtil(root->right,root->val,maxValue);
+        if((minValue == nullptr || root->val > minValue->val) && (maxValue == nullptr || root->val < maxValue->val)) {
+            bool l = isValidBSTUtil(root->left,minValue,root);
+            bool r = isValidBSTUtil(root->right,root,maxValue);
+            
+            return (l&r);
         }
         else {
             return false;
         }
     }
     bool isValidBST(TreeNode* root) {
-        long long inf = 1e12;
-        return isValidBSTUtil(root,-inf,inf);
+        
+        return isValidBSTUtil(root,nullptr,nullptr);
     }
 };
