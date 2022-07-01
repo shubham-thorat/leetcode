@@ -2,11 +2,12 @@ class Solution {
 public:
     int minTaps(int n, vector<int>& ranges) {
         int mn = 0,mx = 0;
-        int open = 0;
+        int open = 0,index = 0;
         while(mx < n) {
-            for(int i=0;i<ranges.size();i++) {
+            for(int i=index;i<ranges.size();i++) {
                 if((i - ranges[i]) <= mn && (i+ranges[i]) > mx) {
                     mx = i + ranges[i];
+                    index = i;
                 }
             }
             
