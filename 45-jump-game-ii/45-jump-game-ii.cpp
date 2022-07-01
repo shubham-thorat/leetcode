@@ -12,6 +12,7 @@ public:
                     mx = i + nums[i];
                     index = i;
                 }
+                if(i > mn) break;
             }
             
             step++;
