@@ -4,19 +4,14 @@ public:
         int n = nums.size();
         
         int ans = INT_MIN;
-        int cprod = 1;
+        int lprod = 1,rprod = 1;
         for(int i=0;i<n;i++) {
-            cprod = cprod * nums[i];
-            ans = max(ans,cprod);
+            lprod = lprod * nums[i];
+            rprod = rprod * nums[n-i-1];
+            ans = max({ans,lprod,rprod});
             
-            if(cprod == 0) cprod = 1;
-        }
-        cprod = 1;
-        for(int i=n-1;i>=0;i--) {
-            cprod = cprod * nums[i];
-            ans = max(ans,cprod);
-            
-            if(cprod == 0) cprod = 1;
+            if(lprod == 0) lprod = 1;
+            if(rprod == 0) rprod = 1;
         }
         
         return ans;
