@@ -1,42 +1,35 @@
 class Solution {
 public:
-    
-    bool canFinish(int n, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(n);
-        vector<int> indegree(n,0);
-       for(auto x:prerequisites)
-        {
-            adj[x[1]].push_back(x[0]);
-           indegree[x[0]]++;
+    bool dfs(vector<vector<int>> &adj,int source,vector<int> &vis) {
+        if(vis[source] == 1) {
+            return true;
         }
-        int cnt=0;
-        queue<int> q;
-        for(int i=0;i<n;i++)
-        {
-            if(indegree[i]==0)
-            {        
-                q.push(i);
-            }
-        }
-        while(!q.empty())
-        {
-            int top = q.front();
-           // cout << top << " ";
-            cnt++;
-            q.pop();
-            
-            for(auto x:adj[top])
-            {
-                indegree[x]--;
-                if(indegree[x]==0)
-                {
-                    //cout << 'r';
-                    q.push(x);
+        
+        if(vis[source] == 0) {
+            vis[source] = 1;
+            for(auto &e:adj[source]) {
+                if(dfs(adj,e,vis)) {
+                    return true;
                 }
             }
         }
-        //cout<<cnt<<endl;
-        return cnt==n;
-     
+        vis[source] = 2;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& pre) {
+        vector<vector<int>> adj(n);
+        
+        for(int i=0;i<pre.size();i++) {
+            adj[pre[i][1]].push_back(pre[i][0]);
+        }
+        
+        vector<int> vis(n,0);
+        
+        for(int i=0;i<n;i++) {
+            if(dfs(adj,i,vis)) {
+                return false;
+            }
+        }
+        return true;
     }
 };
