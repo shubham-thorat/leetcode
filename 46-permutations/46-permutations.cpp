@@ -1,22 +1,29 @@
 class Solution {
 public:
-    void solve(vector<int> &nums,int idx,vector<vector<int>> &ans) {
-        if(idx == nums.size()) {
-            ans.push_back(nums);
+    void permuteUtil(vector<int> &nums,int index,vector<vector<int>> &possiblePermutations) {
+        
+        if(index == nums.size()) {
+            possiblePermutations.push_back(nums);
             return;
         }
-        int n = nums.size();
-        for(int i=idx;i<n;i++){
-            swap(nums[i],nums[idx]);
-            solve(nums,idx + 1,ans);
-            swap(nums[i],nums[idx]);
+        
+        for(int i=index;i<nums.size();i++) {
+            swap(nums[i],nums[index]);
+            permuteUtil(nums,index + 1,possiblePermutations);
+            swap(nums[i],nums[index]);
         }
     }
+    
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> ans;
-        // vector<int> curr;
         
-        solve(nums,0,ans);
-        return ans;
+        vector<vector<int>> possiblePermutations;
+        
+        permuteUtil(nums,0,possiblePermutations);
+        return possiblePermutations;
     }
 };
+
+//             [1,2,3]
+//     [1,2,3]         [2,1,3]     [3,1,2]
+    
+// [1,2,3] [1,3,2]     [2,1,3] [2,3,1] [3,1,2] [3,2,1]
