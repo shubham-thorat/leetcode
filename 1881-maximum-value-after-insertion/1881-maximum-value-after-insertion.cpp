@@ -1,21 +1,39 @@
 class Solution {
 public:
-    string maxValue(string n, int x) {
-        int len = n.size()-1;
-        // int x = 5;
-        int ans = len+1;
-        if(n[0]=='-'){
-            for(int i = len; i>=1; --i){
-                if(n[i]-'0'>x)ans = i;
-            }
-        }
-        else {
-            for(int i = len; i>=0; --i){
-                if(n[i]-'0'<x)ans = i;
+    string Positive(string n,int x) {
+        string ans = "";
+        bool inserted = false;
+        for(int i=0;i<n.length();i++) {
+            
+            if(inserted == false && ((n[i] - '0') < x)) {
+                ans.push_back(x + '0');
+                inserted = true;
             } 
+            ans.push_back(n[i]);
         }
-        n.insert(n.begin()+ans,x+'0');
-        // return stoi(n);
-        return n;
+        if(inserted == false) ans.push_back(x + '0');
+        return ans;
+    }
+    string Negative(string n,int x) {
+        string ans = "-";
+        bool inserted = false;
+        for(int i=1;i<n.length();i++) {
+            
+            if(inserted == false && ((n[i] - '0') > x)) {
+                ans.push_back(x + '0');
+                inserted = true;
+            } 
+            ans.push_back(n[i]);
+        }
+        if(inserted == false) ans.push_back(x + '0');
+        return ans;
+    }
+    string maxValue(string n, int x) {
+        
+        int size = n.length();
+        if(size == 0) return to_string(x);
+        
+        if(n[0] == '-') return Negative(n,x);
+        else return Positive(n,x);
     }
 };
