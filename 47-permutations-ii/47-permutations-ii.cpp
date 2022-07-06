@@ -1,24 +1,31 @@
 class Solution {
 public:
-    void permuteUniqueUtil(vector<int> &nums,int idx,set<vector<int>> &ans) {
-        if(idx == nums.size()) {
-            ans.insert(nums);
+    void solve(unordered_map<int,int> &mp,vector<int> &curr,int n,vector<vector<int>> &ans) {
+        if(n == 0) {
+            ans.push_back(curr);
             return;
         }
         
-        for(int i=idx;i<nums.size();i++) {
-            // if(i > idx && nums)
-            swap(nums[i],nums[idx]);
-            permuteUniqueUtil(nums,idx + 1,ans);
-            swap(nums[i],nums[idx]);
+        for(auto &[val,cnt]:mp) {
+            
+            if(cnt <= 0) continue;
+            
+            cnt--;
+            curr.push_back(val);
+            solve(mp,curr,n-1,ans);
+            curr.pop_back();
+            cnt++;
         }
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-         set<vector<int>> ans;
+         vector<vector<int>> ans;
+        unordered_map<int,int> mp;
         
-        sort(nums.begin(),nums.end());
+        for(auto &e:nums) mp[e] += 1;
         
-        permuteUniqueUtil(nums,0,ans);
-        return vector<vector<int>>(ans.begin(),ans.end());
+        int n = nums.size();
+        vector<int> curr;
+        solve(mp,curr,n,ans);
+        return ans;
     }
 };
