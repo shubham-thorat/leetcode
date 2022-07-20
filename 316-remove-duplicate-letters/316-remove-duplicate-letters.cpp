@@ -1,29 +1,32 @@
 class Solution {
 public:
     string removeDuplicateLetters(string s) {
+        
+        vector<bool> vis(26,false);
         stack<char> st;
-        unordered_map<char,int> mp;
-        for(const auto &e:s) mp[e] += 1;
-        int n = s.length();
-        if(n == 0) return "";
-    unordered_set<char> inc;
-        for(int i=0;i<s.length();i++){
+        unordered_map<char,int> count;
+        
+        for(auto &e:s) count[e] += 1;
+        
+        
+        for(int i=0;i<s.length();i++) {
             
-            while(!st.empty() && mp[st.top()] >= 1 && st.top() > s[i] && inc.find(s[i]) == inc.end()){
-                inc.erase(st.top());
+            while(!st.empty() && st.top() > s[i] && count[st.top()] >= 1 && vis[s[i] - 'a'] == false) {
+                 vis[st.top() - 'a'] = false;
                 st.pop();
             }
             
-            if(inc.find(s[i]) == inc.end()) {
+            if(vis[s[i] - 'a'] == false) {
                 st.push(s[i]);
-                inc.insert(s[i]);
+                vis[s[i] - 'a'] = true;
             }
-            mp[s[i]] -= 1;
+            
+            count[s[i]]--;
         }
         
-        
         string ans = "";
-        while(!st.empty()){
+        
+        while(!st.empty()) {
             ans.push_back(st.top());
             st.pop();
         }
@@ -32,3 +35,9 @@ public:
         return ans;
     }
 };
+
+
+// "abacb"
+    
+    
+    // acb
