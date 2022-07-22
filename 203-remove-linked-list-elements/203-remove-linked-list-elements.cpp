@@ -16,8 +16,10 @@ public:
          ListNode *prev = dummy;
             while(root != NULL) {
                 if(root->val == val) {
+                    ListNode* toDelete = root;
                     prev->next = root->next;
                     root = root->next;   
+                    delete toDelete;
                 }
                 else {
                     prev = root;
