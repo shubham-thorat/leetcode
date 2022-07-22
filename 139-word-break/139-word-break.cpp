@@ -1,17 +1,27 @@
 class Solution {
 public:
-    bool wordBreak(string s, vector<string>& wordDict) {
-                vector<bool> dp(s.size()+1, false);
-        dp[0] = true;
+    bool helper(string s,int idx,unordered_set<string> &cache,vector<int> &dp) {
+        if(idx == s.length()) {
+            return true;
+        }
+        if(dp[idx] != -1) return dp[idx];
         
-        // we mark as true every index that we managed to segment so far
-        for (int i = 1; i <= s.size(); i++)
-            for (int j = 0; j < i; j++)
-                if ((dp[j]) && (find(wordDict.begin(), wordDict.end(), s.substr(j, i-j)) != wordDict.end())) {
-                    dp[i] = true;
-                    break;
-                }
-        return dp.back();
-
+        for(int i=idx;i<s.length();i++) {
+            string str = s.substr(idx,i - idx + 1);
+            if(cache.find(str) != cache.end()) {
+                bool flag = helper(s,i + 1,cache,dp);
+                if(flag) return dp[idx] =  true;
+            }
+        }
+        return dp[idx] = false;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> cache;
+        vector<int> dp(s.length() + 1,-1);
+        for(auto &e:wordDict) {
+            cache.insert(e);
+        }
+        
+        return helper(s,0,cache,dp);
     }
 };
