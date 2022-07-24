@@ -1,26 +1,35 @@
 class Solution {
 public:
-    static bool sortByLength(string s1,string s2) {
-        return (s1.length() < s2.length());
+    static bool mysort(string &a,string &b) {
+        return a.length() < b.length();
     }
-    
-    int longestStrChain(vector<string>& words) {
-        if(words.size() == 0) {
-            return 0;
-        }
-        unordered_map<string,int> dp;
-        sort(words.begin(),words.end(),sortByLength);
-        
-        int ans = 1;
-        for(string str:words) {
-            dp[str] = 1;    
-            for(int i=0;i<str.length();i++) {
-                string curr = str.substr(0,i) + str.substr(i+1);
-                if(dp.find(curr) != dp.end()) {
-                    dp[str] = max(dp[str],dp[curr] + 1);
-                    ans = max(ans,dp[str]);
+    int helper(string word,unordered_set<string> &dict) {
+        int ans = 0;
+        dict.erase(word);
+        for(int i=0;i<=word.length();i++) {
+            
+            for(char ch='a';ch<='z';ch++) {
+                string str = word.substr(0,i) + ch + word.substr(i);
+                if(dict.find(str) != dict.end()) {
+                    int temp = helper(str,dict) + 1;
+                    ans = max(ans,temp);
                 }
             }
+        }
+        return ans;
+    }
+    int longestStrChain(vector<string>& words) {
+        sort(words.begin(),words.end(),mysort);
+       unordered_set<string> dict;
+        
+        for(auto &e:words) {
+            dict.insert(e);
+        }
+        
+        int ans = 0;
+        for(int i=0;i<words.size();i++) {
+            if(dict.find(words[i]) != dict.end())
+                ans = max(ans,helper(words[i],dict) + 1);
         }
         return ans;
     }
