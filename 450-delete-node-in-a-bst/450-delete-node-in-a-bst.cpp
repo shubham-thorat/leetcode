@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode *findMaxRight(TreeNode *root) {
+    TreeNode *findMinRight(TreeNode *root) {
         while(root->left != NULL) {
             root = root->left;
         }
@@ -25,13 +25,16 @@ public:
         
         if(root->val == key) {
             if(root->left == NULL) {
-                return root->right;
+                TreeNode *current = root;
+                root =  root->right;
+                delete current;
+                return root;
             }
             else if(root->right == NULL){
                 return root->left;
             }
             else {
-                TreeNode *rightMin = findMaxRight(root->right);
+                TreeNode *rightMin = findMinRight(root->right);
                 swap(root->val,rightMin->val);
                 root->right = deleteNode(root->right,key);
                 return root;
