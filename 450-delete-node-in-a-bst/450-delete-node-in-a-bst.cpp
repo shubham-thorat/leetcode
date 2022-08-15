@@ -28,16 +28,16 @@ public:
                 TreeNode *current = root;
                 root =  root->right;
                 delete current;
-                return root;
             }
             else if(root->right == NULL){
-                return root->left;
+                TreeNode *current = root;
+                root =  root->left;
+                delete current;
             }
             else {
                 TreeNode *rightMin = findMinRight(root->right);
                 swap(root->val,rightMin->val);
                 root->right = deleteNode(root->right,key);
-                return root;
             }
         }
         else {
@@ -47,7 +47,7 @@ public:
             else {
                 root->right = deleteNode(root->right,key);
             }
-            return root;
         }
+        return root;
     }
 };
