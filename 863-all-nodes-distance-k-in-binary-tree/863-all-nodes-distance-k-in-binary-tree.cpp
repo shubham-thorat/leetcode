@@ -9,63 +9,62 @@
  */
 class Solution {
 public:
+    void storeParent(unordered_map<TreeNode*,TreeNode*> &parent,TreeNode *A,TreeNode *currentParent) {
+        if(A == NULL) {
+            return;
+        }
+        
+        if(currentParent != NULL) {
+            parent[A] = currentParent;
+        }
+        
+        storeParent(parent,A->left,A);
+        storeParent(parent,A->right,A);
+    }
     vector<int> distanceK(TreeNode* A, TreeNode* target, int C) {
-        unordered_map<TreeNode*,TreeNode*> parents;
-        // TreeNode *target = NULL;
-
+        unordered_map<TreeNode*,TreeNode*> parent;
+        unordered_set<TreeNode*> visited;
+        
+        storeParent(parent,A,NULL);
+        
         queue<TreeNode*> levelNodes;
-        levelNodes.push(A);
-        while(!levelNodes.empty()) {
-            TreeNode *curr = levelNodes.front(); 
-            levelNodes.pop();
-
-            if(curr->left != NULL) {
-                parents[curr->left] = curr;
-                levelNodes.push(curr->left);
-            }
-
-            if(curr->right != NULL) {
-                parents[curr->right] = curr;
-                levelNodes.push(curr->right);
-            }
-
-        }
-        // cout << "Not found " << levelNodes.size() << " " << target->val << " " <<endl;
-        unordered_set<TreeNode*> vis;
+        
         levelNodes.push(target);
-        vis.insert(target);
-        while(!levelNodes.empty() && C > 0) {
+        visited.insert(target);
+        while(levelNodes.empty()==false && C > 0) {
             int sz = levelNodes.size();
-            // cout << "size " <<sz<<endl;
-            C--;
-            while(sz > 0) {
-                sz--;
-                TreeNode *curr = levelNodes.front();
+            while(sz--) {
+                TreeNode *temp = levelNodes.front();
                 levelNodes.pop();
-
-                if(curr->left != NULL && vis.find(curr->left) == vis.end()) {
-                    levelNodes.push(curr->left);
-                    vis.insert(curr->left);
+                if(temp->left != NULL && visited.find(temp->left) == visited.end()) {
+                    visited.insert(temp->left);
+                    levelNodes.push(temp->left);
                 }
-
-                if(curr->right != NULL && vis.find(curr->right) == vis.end()) {
-                    levelNodes.push(curr->right);
-                    vis.insert(curr->right);
+                if(temp->right != NULL && visited.find(temp->right) == visited.end()) {
+                    visited.insert(temp->right);
+                    levelNodes.push(temp->right);
                 }
-                if(parents[curr] != NULL && vis.find(parents[curr]) == vis.end()) {
-                    levelNodes.push(parents[curr]);
-                    vis.insert(parents[curr]);
+                if(parent[temp] != NULL && visited.find(parent[temp]) == visited.end()) {
+                    visited.insert(parent[temp]);
+                    levelNodes.push(parent[temp]);
                 }
             }
-         }    
-    // cout <<"levelNodes size "<< levelNodes.size() <<endl;
-        vector<int> result;
-        while(!levelNodes.empty()) {
-            TreeNode *t = levelNodes.front();
-            // cout
-            result.push_back(t->val);
+            C--;
+        }
+        
+        vector<int> ans;
+        while(levelNodes.empty() == false) {
+            ans.push_back(levelNodes.front()->val);
             levelNodes.pop();
         }
-        return result;
+        return ans;
     }
 };
+
+//[1]
+
+//[0,8,3]
+
+//[5]
+
+//[6,2]
